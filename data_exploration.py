@@ -13,3 +13,5 @@ if __name__ == "__main__":
 
     event_log = import_xes("data/Hospital_log.xes.gz")
     event_log.head(20).to_html('logs.html')
+    dfg, start_active, end_active = pm4py.discover_dfg(event_log)
+    pm4py.view_dfg(dfg, start_activities=start_active, end_activities=end_active)
