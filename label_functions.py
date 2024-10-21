@@ -72,8 +72,12 @@ def label_function_4(activities):
     
     return deviant
 
-def label_event_log(event_log, lf, column_name='deviant'):
+def get_lf_map(event_log, lf):
     activity_traces = event_log.groupby('case:concept:name')['concept:name'].apply(list)
     lf_map = activity_traces.apply(lf)
+    return lf_map
+
+def label_event_log(event_log, lf, column_name='deviant'):
+    lf_map = get_lf_map(event_log, lf)
     event_log[column_name] = event_log['case:concept:name'].map(lf_map)
     return event_log
