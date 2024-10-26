@@ -91,5 +91,10 @@ def predict_label(X_cols, event_log, running_trace, clf, le_dict):
 
     # Predict label for the running trace
     y_pred = int(clf.predict(X_test))
+    try:
+        y_pred_proba = clf.predict_proba(X_test)[0][y_pred]
+    except:
+        # if there is only one class in training data, set probability to 1
+        y_pred_proba = 1
 
-    return y_pred
+    return y_pred, y_pred_proba
