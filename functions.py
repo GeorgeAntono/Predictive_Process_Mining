@@ -17,6 +17,12 @@ def import_xes(file_path, print_info=False):
 
     return event_log
 
+def prefix_extraction(trace, max_len=None, steps=1):
+    if max_len == None:
+        max_len = len(trace)
+    prefixes = [trace[:i] for i in range(1, len(trace) + 1, steps) if i <= max_len]
+    return prefixes
+
 def get_similarity(running_trace, traces, similarity=True):
     '''
     Calculate edit distances between running trace and all traces in the log.
