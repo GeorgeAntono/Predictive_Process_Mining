@@ -3,4 +3,5 @@ jupyter
 scikit-learn
 editdistance
 levenshtein
-
+seaborn
+matplotlib
