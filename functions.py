@@ -82,8 +82,13 @@ def predict_label(X_cols, event_log, running_trace, clf, le_dict):
     for col in X_cols:
         try:
             X_test[col] = le_dict[col].transform(X_test[col])
-        except:
-            # if the value is not in the training data, use 'Missing'
+        except ValueError:  # Raised if there's an unknown category
+        # Check if 'Missing' is in the classes; if not, return 1, 0
+            if 'Missing' not in le_dict[col].classes_:
+                # Get the most common class from the root node of the decision tree
+                most_common_class = clf.classes_[np.argmax(clf.tree_.value[0])]
+                return most_common_class, 0
+            # Transform with 'Missing' value if available
             X_test[col] = le_dict[col].transform(['Missing'])[0]
 
     # Convert X_test to a numpy array
