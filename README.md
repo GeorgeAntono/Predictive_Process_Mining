@@ -1,12 +1,10 @@
-# Predictive_Process_Mining
+# Predictive Process Mining: Clustering-Based PM Framework
 
 List of contributors:
 Georgios Antonopoulos
 Orcun Karabicak
 Sjoerd Offringa
 Krzysztof Wiesniakowski
-
-# Predictive Process Mining: Clustering-Based Predictive Monitoring
 
 **Subtitle:** Enhancing predictive accuracy in process mining through clustering, supervised learning, and on-the-fly prediction.
 
