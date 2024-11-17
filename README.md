@@ -67,10 +67,10 @@ requirements.txt                # Python dependencies
 
 ## How to run it:
 
-1.Clone the Repository
+1. Clone the Repository
 ```
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/GeorgeAntono/Predictive_Process_Mining.git
+cd Predictive_Process_Mining
 ```
 
 2. Install Dependencies: Ensure you have Python 3.8+ installed. Then, install the required libraries:
