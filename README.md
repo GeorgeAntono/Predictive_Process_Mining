@@ -52,12 +52,12 @@ This repository contains the files and scripts needed for preprocessing, cluster
 ```plaintext
 __pycache__/                    # Python cache files
 data/                           # Event logs and data files
-visualizations/                 # Visual outputs (e.g., cluster plots)
+visualizations/                 # Visual outputs
 .gitignore                      # Git ignore file
 DBSCAN_DT.ipynb                 # Clustering-based predictive monitoring implementation
 README.md                       # This README file
-data_exploration.ipynb          # Data preprocessing and exploration
-data_exploration.py             # Script for preprocessing
+data_exploration.ipynb          # In depth data exploration
+data_exploration.py             # Data exploration
 functions.py                    # Core functions (encoding, clustering, prediction)
 label_functions.py              # Custom labeling functions
 on-the-fly_model.ipynb          # Implementation of the on-the-fly predictive monitoring model
