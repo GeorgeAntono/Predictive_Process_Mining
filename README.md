@@ -1,4 +1,4 @@
-# Predictive Process Mining: Clustering-Based PM Framework
+# Predictive Process Monitoring: Clustering-Based PM Framework
 
 List of contributors:
 Georgios Antonopoulos, 
