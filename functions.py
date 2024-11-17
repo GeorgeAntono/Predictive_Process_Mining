@@ -5,23 +5,29 @@ import editdistance
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 
+
 def import_xes(file_path, print_info=False):
     event_log = pm4py.read_xes(file_path)
     start_activities = pm4py.get_start_activities(event_log)
     end_activities = pm4py.get_end_activities(event_log)
     if print_info:
-        print("Start activities: {}\nEnd activities: {}".format(start_activities, end_activities))
+        print("Start activities: {}\nEnd activities: {}".format(
+            start_activities, end_activities))
 
     # convert all activity codes to strings
     event_log['Activity code'] = event_log['Activity code'].astype(str)
 
     return event_log
 
+
 def prefix_extraction(trace, max_len=None, steps=1):
     if max_len == None:
         max_len = len(trace)
-    prefixes = [trace[:i] for i in range(1, len(trace) + 1, steps) if i <= max_len]
+    prefixes = [trace[:i]
+                for i in range(1, len(trace) + 1, steps)
+                if i <= max_len]
     return prefixes
+
 
 def get_similarity(running_trace, traces, similarity=True):
     '''
@@ -37,15 +43,18 @@ def get_similarity(running_trace, traces, similarity=True):
     for case, activities in traces.items():
         distance = editdistance.eval(running_trace, activities)
         if similarity:
-            similarity_score = 1 - distance / max(len(running_trace), len(activities))
+            similarity_score = 1 - distance / \
+                max(len(running_trace), len(activities))
             str_edit_dist.append((case, similarity_score))
         else:
             str_edit_dist.append((case, distance))
     return dict(str_edit_dist)
 
+
 def train_model(X_cols, event_log, similar_traces_list, lf_map):
     # Get last event for each trace in similar_traces_list (training set)
-    X_train = event_log.groupby('case:concept:name')[X_cols].last().loc[similar_traces_list]
+    X_train = event_log.groupby('case:concept:name')[X_cols]\
+                       .last().loc[similar_traces_list]
 
     # Fill missing values and convert to string
     X_train = X_train.fillna('Missing', axis=1)
@@ -61,7 +70,8 @@ def train_model(X_cols, event_log, similar_traces_list, lf_map):
 
     # Convert X and y to arrays
     X_train = X_train.to_numpy()
-    y_train = np.array([lf_map[trace] for trace in similar_traces_list]).astype(int)
+    y_train = np.array([lf_map[trace]
+                       for trace in similar_traces_list]).astype(int)
 
     # Train decision tree model
     clf = DecisionTreeClassifier(max_depth=3, random_state=0)
@@ -69,9 +79,11 @@ def train_model(X_cols, event_log, similar_traces_list, lf_map):
 
     return clf, le_dict
 
+
 def predict_label(X_cols, event_log, running_trace, clf, le_dict):
     # Prepare the test data (running_trace)
-    X_test = event_log.groupby('case:concept:name')[X_cols].last().loc[running_trace.index]
+    X_test = event_log.groupby('case:concept:name')[X_cols]\
+                      .last().loc[running_trace.index]
 
     # Fill missing values and convert to string
     X_test = X_test.fillna('Missing', axis=1)
@@ -83,7 +95,7 @@ def predict_label(X_cols, event_log, running_trace, clf, le_dict):
         try:
             X_test[col] = le_dict[col].transform(X_test[col])
         except ValueError:  # Raised if there's an unknown category
-        # Check if 'Missing' is in the classes; if not, return 1, 0
+            # Check if 'Missing' is in the classes; if not, return 1, 0
             if 'Missing' not in le_dict[col].classes_:
                 # Get the most common class from the root node of the decision tree
                 most_common_class = clf.classes_[np.argmax(clf.tree_.value[0])]

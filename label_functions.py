@@ -8,11 +8,12 @@ def label_function_1(activities):
     '''
     activity1 = 'ca-19.9 tumormarker'
     activity2 = 'ca-125 mbv meia'
-    
+
     deviant = True
     if activity1 in activities or activity2 in activities:
         deviant = False
     return deviant
+
 
 def label_function_2(activities):
     '''
@@ -33,6 +34,7 @@ def label_function_2(activities):
             if activities.index(activity2) > activities.index(activity1):
                 deviant = False
     return deviant
+
 
 def label_function_3(activities):
     '''
@@ -69,13 +71,16 @@ def label_function_4(activities):
     deviant = True
     if activity1 in activities:
         deviant = False
-    
+
     return deviant
 
+
 def get_lf_map(event_log, lf):
-    activity_traces = event_log.groupby('case:concept:name')['concept:name'].apply(list)
+    activity_traces = event_log.groupby('case:concept:name')['concept:name']\
+                               .apply(list)
     lf_map = activity_traces.apply(lf)
     return lf_map
+
 
 def label_event_log(event_log, lf, column_name='deviant'):
     lf_map = get_lf_map(event_log, lf)
