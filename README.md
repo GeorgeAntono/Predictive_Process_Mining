@@ -31,7 +31,12 @@ The project employs two approaches for predictive process monitoring:
    - **Predictive Monitoring:** Running traces are matched to clusters based on their prefixes, and predictions are made using the corresponding cluster’s pre-trained classifier, significantly reducing runtime overhead.
 
 2. **On-the-Fly Predictive Monitoring**
-   
+   - **Prefix Extraction:** Trace prefixes are extracted up to a specified length and with a specified step number (e.g. lengths 1, 6, 11, 16 and 21).
+   - **Compute Similarity:** Similarity between the running trace and each historic traces is computed.
+   - **Prefix selection:** The _n_ most similar prefixes are used for prediction.
+   - **Data encoding:** Event Payload data of the selected traces is encoded numerically.
+   - **Training:** A decision tree classifier is trained based on the encoded payload of selected traces, with a specified labeling function to label classes.
+   - **Prediction:** A prediction on the running trace is made with the decision tree. If the class probability is below a set threshold, the prediction is considered a failure.
 
 ### Results
 
