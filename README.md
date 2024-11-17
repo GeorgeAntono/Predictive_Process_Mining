@@ -58,7 +58,7 @@ label_functions.py              # Custom labeling functions
 on-the-fly_model.ipynb          # Implementation of the on-the-fly predictive monitoring model
 on_the_fly_results.csv          # Results of the on-the-fly model
 requirements.txt                # Python dependencies
-
+```
 
 ## How to run it:
 
@@ -73,8 +73,9 @@ cd <repository-folder>
 pip install -r requirements.txt
 ```
 3. Run Clustering-Based Predictive Monitoring and on the fly model by opening:
+
 ```
-DBSCAN_DT.ipynb 
+DBSCAN_DT.ipynb,  
 on-the-fly_model.ipynb 
 ```
 
