@@ -59,3 +59,22 @@ on-the-fly_model.ipynb          # Implementation of the on-the-fly predictive mo
 on_the_fly_results.csv          # Results of the on-the-fly model
 requirements.txt                # Python dependencies
 
+
+## How to run it:
+
+1.Clone the Repository
+```
+git clone <repository-url>
+cd <repository-folder>
+```
+
+2. Install Dependencies: Ensure you have Python 3.8+ installed. Then, install the required libraries:
+```
+pip install -r requirements.txt
+```
+3. Run Clustering-Based Predictive Monitoring and on the fly model by opening:
+```
+DBSCAN_DT.ipynb 
+on-the-fly_model.ipynb 
+```
+
